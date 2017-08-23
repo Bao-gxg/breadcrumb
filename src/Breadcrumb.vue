@@ -1,9 +1,11 @@
 <template>
-  <ol class="breadcrumb">
-    <li v-for="(item, index) in list"><span class="active" v-if="isLast(index)">{{ showName(item) }}</span>
-      <router-link :to="item.path" v-else>{{ showName(item) }}</router-link>
-    </li>
-  </ol>
+  <nav class="breadcrumb is-small has-succeeds-separator" aria-label="breadcrumbs" v-if="$breadcrumbs.length">
+    <ul>
+      <router-link tag="li" v-for="(crumb, key) in list" :to="crumb.path" :key="key" aria-current="page" exact>
+        <a>{{ showName(crumb) }}</a>
+      </router-link>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -13,44 +15,25 @@ export default {
     list: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
-    separator: String
   },
 
   mounted () {
     if (this.separator) {
-      this.$el.style.setProperty('--separator', `"${this.separator}"`)
+      this.$el.style.setProperty('--separator', `"${this.separator}"`);
     }
   },
 
   methods: {
     isLast (index) {
-      return index === this.list.length - 1
+      return index === this.list.length - 1;
     },
 
     showName (item) {
-      return item.meta && item.meta.label || item.name
-    }
-  }
+      return item.meta && item.meta.label || item.name;
+    },
+  },
 }
 </script>
 
-<style lang="scss">
-.breadcrumb {
-  // > \003e
-  // / \2044
-  --separator: "\2044";
-
-  list-style: none;
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-
-  & > li + li:before {
-    padding: 0 5px;
-    color: #ccc;
-    content: var(--separator, "\2044");
-  }
-}
-</style>
