@@ -19,21 +19,15 @@ export default {
     },
   },
 
-  mounted () {
-    if (this.separator) {
-      this.$el.style.setProperty('--separator', `"${this.separator}"`);
-    }
-  },
-
   methods: {
-    isLast (index) {
+    isLast(index) {
       return index === this.list.length - 1;
     },
 
-    showName (item) {
-      return item.meta && item.meta.label || item.name;
+    showName(item) {
+      return (item.meta && item.meta.label) || item.name;
     },
   },
-}
+};
 </script>
 
