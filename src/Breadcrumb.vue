@@ -1,5 +1,5 @@
 <template>
-  <nav class="breadcrumb is-small has-succeeds-separator" aria-label="breadcrumbs" v-if="$breadcrumbs.length">
+  <nav class="breadcrumb is-small has-succeeds-separator" aria-label="breadcrumbs" v-if="list.length">
     <ul>
       <router-link tag="li" v-for="(crumb, key) in list" :to="crumb.path" :key="key" aria-current="page" exact>
         <a>{{ showName(crumb) }}</a>
